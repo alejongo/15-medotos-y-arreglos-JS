@@ -9,16 +9,19 @@
 </head>
 <body>
     <main class="container mx-auto mt-5 w-1/2 outline outline-gray-400 rounded p-3">
-        <h1 class="text-xl font-bold text-center">Todo List</h1>
+        <h1 class="text-xl font-bold text-left">Todo List</h1>
         <hr class="border-gray-400 mt-2">
         <section class="flex justify-between gap-2 mt-5">
             <input id="newTodoInput" type="text" class="w-3/4 p-1 outline outline-gray-300 rounded hover:outline hover:outline-2 hover:outline-indigo-200 focus:outline focus:outline-2 focus:outline-indigo-300" placeholder="Add Task">
             <button id="addTodoButton" class="opacity-50 bg-indigo-500 text-white pl-3 pr-3 rounded hover:outline hover:outline-2 hover:outline-indigo-200 hover:cursor-pointer" disabled> Agregar</button>
         </section>
         <section>
-            <div class="flex justify-end gap-5 mt-5 text-sm ">
+            <div  class="flex justify-end gap-5 mt-5 text-sm ">
                 <div id="totalTodoCounter" class="text-indigo-600 "> </div>
                 <div id="completedTodoCounter" class="text-emerald-500"></div>
+            </div>
+            <div id="emptyState" class="text-center text-gray-400">
+                <p>Upps! No tienes tareas, crea una!</p>
             </div>
             <div id="todoTable">
                 <table class="table-fixed w-full border-spacing-5 border-collapse-5" >

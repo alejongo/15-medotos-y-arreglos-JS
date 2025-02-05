@@ -1,6 +1,7 @@
 const todoInput = document.getElementById("newTodoInput");
 const addTodoBtn = document.getElementById("addTodoButton");
 const todoTableBody = document.getElementById("todoTableBody");
+const emptyState = document.getElementById("emptyState");
 const todoTableHead = document.getElementById("tableTodoHead");
 const actionCompleteBtn = document.getElementById("actionComplete");
 const todoCompleted = document.getElementById("todoCompleted");
@@ -15,7 +16,11 @@ const renderTodos = () => {
   let tableHeadhtml = "";
 
   if (todos.length >= 1) {
-    tableHeadhtml += ` <tr class="flex gap-1 text-gray-600">
+    emptyState.setAttribute("hidden", true);
+    completedTodoCounter.removeAttribute("hidden");
+    totalTodoCounter.removeAttribute("hidden");
+
+    tableHeadhtml += ` <tr id="theadRow" class="flex gap-1 text-gray-600">
         <th class="w-1/6 text-left">ID</th>
         <th class="w-5/6 text-left">Todo</th>
         </tr>`;
@@ -26,7 +31,11 @@ const renderTodos = () => {
                   <td class="w-1/6 text-base overflow-hidden text-ellipsis">${
                     todo.id
                   }</td>
-                  <td class="w-4/6 text-base">${todo.description}</td>
+                  <td class="${
+                    todo.isCompleted
+                      ? "line-through  w-4/6 text-base"
+                      : "w-4/6 text-base"
+                  } ">${todo.description}</td>
                   <td class="w-1/6 flex justify-end gap-3">
                       <div>
                       ${
@@ -89,8 +98,8 @@ const completeTodo = (id) => {
   const foundTodo = todos.find((todo) => todo.id === id);
   const isCompleted = foundTodo.isCompleted;
   foundTodo.isCompleted = !isCompleted;
+
   renderTodos();
-  console.log(foundTodo);
   countCompletedTodo();
 };
 
@@ -102,12 +111,20 @@ const deleteTodo = (id) => {
   renderTodos();
 };
 
-//TODO: Count Todos
+// Count Todos
 const countTodos = () => {
   let html = "";
   const totalTodos = todos.length;
   html = `Total: ${totalTodos}`;
   totalTodoCounter.innerHTML = html;
+
+  if (totalTodos <= 0) {
+    emptyState.removeAttribute("hidden");
+    theadRow.setAttribute("hidden", true);
+    completedTodoCounter.setAttribute("hidden", true);
+    totalTodoCounter.setAttribute("hidden", true);
+  }
+
   console.log(totalTodos);
 };
 
