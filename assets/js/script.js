@@ -1,15 +1,26 @@
 const todoInput = document.getElementById("newTodoInput");
 const addTodoBtn = document.getElementById("addTodoButton");
 const todoTableBody = document.getElementById("todoTableBody");
+const todoTableHead = document.getElementById("tableTodoHead");
 const actionCompleteBtn = document.getElementById("actionComplete");
 const todoCompleted = document.getElementById("todoCompleted");
+const totalTodoCounter = document.getElementById("totalTodoCounter");
+const completedTodoCounter = document.getElementById("completedTodoCounter");
 
 const todos = [];
 
-//TODO: Render Todos
+// Render Todos
 const renderTodos = () => {
   let html = "";
+  let tableHeadhtml = "";
+
   if (todos.length >= 1) {
+    tableHeadhtml += ` <tr class="flex gap-1 text-gray-600">
+        <th class="w-1/6 text-left">ID</th>
+        <th class="w-5/6 text-left">Todo</th>
+        </tr>`;
+    todoTableHead.innerHTML = tableHeadhtml;
+
     todos.map((todo) => {
       html += `<tr class="flex gap-2 text-gray-400 justify-between border-b border-b-gray-300 pt-2 pb-2">
                   <td class="w-1/6 text-base overflow-hidden text-ellipsis">${
@@ -68,20 +79,45 @@ addTodoBtn.addEventListener("click", () => {
   addTodoBtn.classList.add("opacity-50");
 
   renderTodos();
+  countTodos();
+  countCompletedTodo();
+  console.log(todos);
 });
 
-//TODO: Complete Todo
+// Complete Todo
 const completeTodo = (id) => {
   const foundTodo = todos.find((todo) => todo.id === id);
   const isCompleted = foundTodo.isCompleted;
   foundTodo.isCompleted = !isCompleted;
   renderTodos();
   console.log(foundTodo);
+  countCompletedTodo();
 };
 
 // Delete Todo
 const deleteTodo = (id) => {
   const todoIndex = todos.findIndex((todo) => todo.id == id);
   todos.splice(todoIndex, 1);
+  countTodos();
   renderTodos();
+};
+
+//TODO: Count Todos
+const countTodos = () => {
+  let html = "";
+  const totalTodos = todos.length;
+  html = `Total: ${totalTodos}`;
+  totalTodoCounter.innerHTML = html;
+  console.log(totalTodos);
+};
+
+// Count completed Todos
+const countCompletedTodo = () => {
+  let html = "";
+
+  const filterCompletedTodos = todos.filter(
+    (todo) => todo.isCompleted === true
+  );
+  html = `Completados: ${filterCompletedTodos.length}`;
+  completedTodoCounter.innerHTML = html;
 };
