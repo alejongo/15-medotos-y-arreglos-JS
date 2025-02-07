@@ -8,7 +8,23 @@ const todoCompleted = document.getElementById("todoCompleted");
 const totalTodoCounter = document.getElementById("totalTodoCounter");
 const completedTodoCounter = document.getElementById("completedTodoCounter");
 
-const todos = [];
+const todos = [
+  {
+    id: 1,
+    description: "Sacar el perro",
+    isCompleted: false,
+  },
+  {
+    id: 2,
+    description: "Prender el carro",
+    isCompleted: false,
+  },
+  {
+    id: 3,
+    description: "Sacar la basura",
+    isCompleted: false,
+  },
+];
 
 // Render Todos
 const renderTodos = () => {
@@ -138,3 +154,7 @@ const countCompletedTodo = () => {
   html = `Completados: ${filterCompletedTodos.length}`;
   completedTodoCounter.innerHTML = html;
 };
+
+renderTodos();
+countTodos();
+countCompletedTodo();
